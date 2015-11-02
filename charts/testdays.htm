@@ -1,0 +1,48 @@
+<div class='row trunk-section'>
+    <div class='col-lg-7 text-center' id='testdays'></div>
+    <div class='col-lg-7 text-center' id='testdays-aggregate'></div>
+</div>
+
+<script>
+MG._hooks = {};
+d3.json('data/testdays.json', function(data) {
+    for (i=0; i<data.length; i++) {
+        data[i] = MG.convert.date(data[i], 'date');
+    }
+    
+    MG.data_graphic({
+        title: "Contributors and Bugs",
+        data: data,
+        width: 1200,
+        height: 400,
+        right: 70,
+        target: document.getElementById('testdays'),
+        x_accessor: "date",
+        y_accessor: "total",
+        interpolate: "monotone",
+        legend: ['Contributors', 'Bugs'],
+        chart_type: "line"
+    });
+});
+
+d3.json('data/testdays-aggregate.json', function(data) {
+    for (i=0; i<data.length; i++) {
+        data[i] = MG.convert.date(data[i], 'date');
+    }
+    
+    MG.data_graphic({
+        title: "Contributors and Bugs (Aggregate)",
+        data: data,
+        width: 1200,
+        height: 400,
+        right: 70,
+        max_y: 400,
+        target: document.getElementById('testdays-aggregate'),
+        x_accessor: "date",
+        y_accessor: "total",
+        interpolate: "monotone",
+        legend: ['Contributors', 'Bugs'],
+        chart_type: "line"
+    });
+}); 
+</script>
